@@ -16,9 +16,16 @@ namespace MoviesApp.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Planning to do something with stream rights request from MSS
         /// </summary>
-        /// <returns>Returns the latest movie addition to MPC</returns>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<ActionResult> GrantRights()
+        {
+            return Ok();
+        }
+
+        
         
         /*[HttpGet]
         public async Task<IActionResult> AddMovietoMSS()
