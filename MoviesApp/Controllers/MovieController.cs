@@ -139,6 +139,18 @@ namespace MoviesApp.Controllers
             return RedirectToAction("List", "Movie");
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="movieId">Selected ovie by Id from MSS database</param>
+        /// <returns>Send POST request to MPC for streaming rights</returns>
+        [HttpPost]
+        public IActionResult RequestRights(int movieId)
+        {
+            return View();
+        }
+
         private MovieDbContext _movieDbContext;
         private readonly HttpClient _client;
     }

@@ -60,6 +60,11 @@ namespace MoviesApp.Controllers
 
             return CreatedAtAction("GetMovieById", new {id = newMovie.MovieId}, newMovie);
         }
+
+        public async Task<ActionResult> RequestStreamingRights()
+        {
+
+        }
         
 
         /*[HttpGet]
