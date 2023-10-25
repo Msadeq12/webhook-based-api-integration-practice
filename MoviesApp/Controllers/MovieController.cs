@@ -68,6 +68,7 @@ namespace MoviesApp.Controllers
                 _movieDbContext.Movies.Add(movieViewModel.ActiveMovie);
                 _movieDbContext.SaveChanges();
 
+                // sends a POST request to MSS with the new movie
                 NotificationSender.Send(_movieDbContext, movieViewModel.ActiveMovie, _client);
 
                 var partners = _movieDbContext.Partners.ToList();

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoviesApp.Entities;
+using MoviesApp.Models;
 
 namespace MoviesApp.Controllers
 {
@@ -20,13 +21,17 @@ namespace MoviesApp.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult> GrantRights()
+        public async Task<ActionResult> GrantRights([FromBody] StreamRightsModel request)
         {
-            return Ok();
+            
+            string result = $"Movie: {request.MovieName} requested for MSS with key: {request.Key}";
+            await Console.Out.WriteLineAsync(result);
+
+            return Ok(result);
+
         }
 
-        
-        
+
         /*[HttpGet]
         public async Task<IActionResult> AddMovietoMSS()
         {
