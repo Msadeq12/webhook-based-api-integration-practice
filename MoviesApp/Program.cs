@@ -12,7 +12,6 @@ builder.Services.AddDbContext<MovieDbContext>(options => options.UseSqlServer(co
 
 
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

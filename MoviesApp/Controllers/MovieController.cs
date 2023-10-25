@@ -15,9 +15,9 @@ namespace MoviesApp.Controllers
         public MovieController(MovieDbContext movieDbContext)
         {
             _movieDbContext = movieDbContext;
-            /*_client = new HttpClient();
+            _client = new HttpClient();
 
-            string url = "https://localhost:7082/api/movies";
+            /*string url = "https://localhost:7082/api/movies";
 
             HttpResponseMessage responseFromMPC = _client.GetAsync(url).Result;
             Movie? movieFromMPC;
@@ -143,12 +143,40 @@ namespace MoviesApp.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="movieId">Selected ovie by Id from MSS database</param>
+        /// <param name="movieId">Selected movie by Id from MSS database</param>
         /// <returns>Send POST request to MPC for streaming rights</returns>
         [HttpPost]
-        public IActionResult RequestRights(int movieId)
+        public IActionResult RequestRights(int id)
         {
-            return View();
+            string url = "https://localhost:7082/api/movies/";
+            var selectedMovie = _movieDbContext.Movies.Find(id);
+
+            //gets apikey from appsettings.json under productionstudiosettings
+            var apiKey = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ProductionStudioSettings")["ApiKey"];
+
+            StreamRightsModel requestRights = new()
+            {
+                MovieName = selectedMovie.Name,
+                Key = apiKey
+            };
+
+
+            HttpResponseMessage message = _client.PostAsJsonAsync<StreamRightsModel>(url, requestRights).Result;
+
+     
+            if (message.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Message sent: " + JsonConvert.SerializeObject(requestRights));
+            }
+
+            else
+            {
+                Console.WriteLine("Error code for stream rights: " + message.StatusCode);
+            }
+            
+
+            return RedirectToAction("List");
+
         }
 
         private MovieDbContext _movieDbContext;

@@ -32,7 +32,11 @@
                 @if(movie.StreamingRights == "Not Streaming")
                 {
                     <td>
-                        <a asp-controller="" asp-action="" asp-route-id="@movie.MovieId">Request Streaming Rights</a>
+                        <form method="post" asp-controller="Movie">
+                            <button type="submit" asp-route-id="@movie.MovieId" asp-action="RequestRights" >Request Streaming Rights</button>
+                        </form>
+                       
+                        
                     </td>
                 }
 
